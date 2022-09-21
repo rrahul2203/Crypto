@@ -40,7 +40,9 @@ class QueryDatewise(ListAPIView, LimitOffsetPagination):
         return list(queryset[self.offset:self.offset + self.limit])
 
     def get_paginated_response(self, data):
-        current_url = self.get_html_context()['page_links'][1]
+        current_urls = self.get_html_context()['page_links']
+        if current_urls:
+            current_url = current_urls[-1]
         return Response(OrderedDict([
             ('url', current_url),
             ('next', self.get_next_link()),

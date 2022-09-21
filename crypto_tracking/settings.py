@@ -144,3 +144,11 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
 STATIC_URL = '/static/'
+
+MAX_PRICE = float(os.environ.get("MAX_PRICE", 19000))
+MIN_PRICE = float(os.environ.get("MIN_PRICE", 15000))
+
+EMAIL_HOST = 'smtp.mailtrap.io'
+EMAIL_HOST_USER = 'c73919ed82323e'
+EMAIL_HOST_PASSWORD = 'da1f2b85bec0cb'
+EMAIL_PORT = '2525'

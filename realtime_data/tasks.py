@@ -1,14 +1,16 @@
+from curses.ascii import EM
 import os
+from tkinter import E
 import requests 
 import logging
+from django.core.mail import send_mail
+
 from crypto_tracking.celery import app
+from crypto_tracking.settings import EMAIL_HOST_USER, MAX_PRICE, MIN_PRICE
 
 from .models import Price
 
 logger = logging.getLogger(__name__)
-
-max_price = os.environ.get('MAX_PRICE')
-min_price = os.environ.get('MIN_PRICE')
 
 @app.task
 def get_crypto_data():
@@ -23,8 +25,21 @@ def get_crypto_data():
     except Exception:
         logger.error("Unable to store the data")
 
-    if price<min_price or price>max_price:
-        pass
+    current_price = float(price)
+    if current_price<MIN_PRICE or current_price>MAX_PRICE:
+        if current_price<MIN_PRICE:
+            alert_message = "below the minimum" 
+        else:
+            alert_message = "above the maximum"
+
+        send_mail(
+            "Price Alert",
+            "Current Price is {} price (set-up by you)-{} USD".format(alert_message, current_price),
+            EMAIL_HOST_USER,
+            ["ranjan.rahul970@gmail.com"],
+        )
+        logger.info("Successfully email sent")
+
     
     
 
