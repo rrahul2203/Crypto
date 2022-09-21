@@ -11,6 +11,9 @@ https://docs.djangoproject.com/en/2.2/ref/settings/
 """
 
 import os
+from dotenv import load_dotenv
+
+load_dotenv()
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -21,7 +24,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = os.environ.get('SECRET_KEY')
-SECRET_KEY = '5756pf+!f^st*msvokf(m8evifg41v+8(hr1e7f2h5%r)v6$gv'
+
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -147,6 +150,11 @@ STATIC_URL = '/static/'
 
 MAX_PRICE = float(os.environ.get("MAX_PRICE", 19000))
 MIN_PRICE = float(os.environ.get("MIN_PRICE", 15000))
+
+EMAIL_HOST = os.environ.get("EMAIL_HOST")
+EMAIL_HOST_USER = os.environ.get("EMAIL_HOST_USER")
+EMAIL_HOST_PASSWORD = os.environ.get("EMAIL_HOST_PASSWORD")
+EMAIL_PORT = os.environ.get("EMAIL_PORT")
 
 EMAIL_HOST = 'smtp.mailtrap.io'
 EMAIL_HOST_USER = 'c73919ed82323e'
