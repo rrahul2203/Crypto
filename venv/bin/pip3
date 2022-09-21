@@ -1,4 +1,4 @@
-#!/Users/rahulranjan/Desktop/Crypto/venv/bin/python3.7
+#!/Users/rahulranjan/Desktop/crypto_tracking/venv/bin/python3.7
 # -*- coding: utf-8 -*-
 import re
 import sys
