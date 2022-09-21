@@ -14,4 +14,5 @@
 1. Install Docker 
 2. docker-compose up --build 
 
-
+#Example:
+<img width="1406" alt="Screenshot 2022-09-22 at 12 45 57 AM" src="https://user-images.githubusercontent.com/56479326/191591258-dd2378f5-2403-4a4a-b7ed-1a57a04fdc4e.png">
