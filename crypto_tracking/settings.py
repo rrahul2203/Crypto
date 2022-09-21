@@ -20,6 +20,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/2.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
+SECRET_KEY = os.environ.get('SECRET_KEY')
 SECRET_KEY = '5756pf+!f^st*msvokf(m8evifg41v+8(hr1e7f2h5%r)v6$gv'
 
 # SECURITY WARNING: don't run with debug turned on in production!
@@ -37,6 +38,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'realtime_data',
+    'django_celery_beat',
+    'django_celery_results',
 ]
 
 MIDDLEWARE = [
@@ -48,6 +52,20 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
+
+# save Celery task results in Django's database
+CELERY_RESULT_BACKEND = "django-db"
+
+# This configures Redis as the datastore between Django + Celery
+CELERY_BROKER_URL = os.environ.get('CELERY_BROKER_REDIS_URL', 'redis://localhost:6379')
+
+CELERY_BEAT_SCHEDULE = {}
+
+
+CELERY_BEAT_SCHEDULE["store_query_data"] = {
+        "task": "realtime_data.tasks.get_crypto_data",
+        'schedule': 30.0,
+    }
 
 ROOT_URLCONF = 'crypto_tracking.urls'
 
