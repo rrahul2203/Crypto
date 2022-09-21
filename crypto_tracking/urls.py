@@ -19,6 +19,6 @@ from django.urls import path, include
 import realtime_data
 
 urlpatterns = [
-    path('currentPrice/', include('realtime_data.urls')),
+    path('api/', include('realtime_data.urls')),
     path('admin/', admin.site.urls),
 ]
