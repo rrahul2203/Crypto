@@ -1,6 +1,4 @@
-from celery import shared_task
-from celery.schedules import crontab
-from datetime import timedelta
+import os
 import requests 
 import logging
 from crypto_tracking.celery import app
@@ -8,6 +6,9 @@ from crypto_tracking.celery import app
 from .models import Price
 
 logger = logging.getLogger(__name__)
+
+max_price = os.environ.get('MAX_PRICE')
+min_price = os.environ.get('MIN_PRICE')
 
 @app.task
 def get_crypto_data():
@@ -21,6 +22,11 @@ def get_crypto_data():
         logger.info("Data Caputered Successfully.")
     except Exception:
         logger.error("Unable to store the data")
+
+    if price<min_price or price>max_price:
+        pass
+    
+    
 
 
 

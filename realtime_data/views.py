@@ -55,12 +55,9 @@ class QueryDatewise(ListAPIView, LimitOffsetPagination):
         filter_query = {"created_on__year":date.year, "created_on__month":date.month, "created_on__day":date.day}
         queryset =  Price.objects.filter(**filter_query).order_by('created_on')
         page = self.paginate_queryset(queryset, request)
-        print("request ", request)
-
         serializer_context = {'request': request}
         serializer = self.serializer_class(
             page, context=serializer_context, many=True
         )
-        print("serializer ", serializer, "serializer.data", serializer.data )
         return self.get_paginated_response(serializer.data)
     
