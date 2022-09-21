@@ -1,6 +1,4 @@
-from curses.ascii import EM
 import os
-from tkinter import E
 import requests 
 import logging
 from django.core.mail import send_mail
@@ -35,8 +33,8 @@ def get_crypto_data():
         send_mail(
             "Price Alert",
             "Current Price is {} price (set-up by you)-{} USD".format(alert_message, current_price),
-            EMAIL_HOST_USER,
-            ["ranjan.rahul970@gmail.com"],
+            "ranjan.rahul970@gmail.com",
+            ["rahulr@daloopa.com"],
         )
         logger.info("Successfully email sent")
 
